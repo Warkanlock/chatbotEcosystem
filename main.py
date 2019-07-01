@@ -8,8 +8,11 @@ import os
 import sys
 import dialogflow_v2 as dialogflow
 import re
+import requests
+import json
 
 CREDENTIALS = './Ecosystem ChatBot-fcb8f6d650b8.json'
+HOST = 'http://127.0.0.1:5000'
 
 class QueryManager():
     def __init__(self):
@@ -22,14 +25,19 @@ class QueryManager():
         self.response = None
 
         self.word_keys = {
-            'findnumbersection' : self.findnumbersection, # functionName - functionMethod
+            'findnumbersection': self.findnumbersection,  # functionName - functionMethod
         }
 
         print('Session path: {}\n'.format(self.session))
-    
+
     def findnumbersection(self, text_response):
-        replace = text_response.replace(r"@number", str(20))
-        print(replace)
+        try:
+            response = requests.get(HOST + '/graph_api/CountNodes')
+            response = response.json()
+            replace = text_response.replace(r"@number", str(response[0][0]))
+        except ReferenceError as e:
+            return -1
+        return replace
 
     def query(self, textQuery):
         text_input = dialogflow.types.TextInput(text=textQuery, language_code=self.DIALOGFLOW_LANGUAGE_CODE)
@@ -38,9 +46,8 @@ class QueryManager():
         return self.response
 
     def manageResponse(self, response):
-        funcResponse = self.word_keys.get(response.query_result.action.replace(".",""), lambda: "Invalid name")
-        funcResponse(response.query_result.fulfillment_text)
-
+        funcResponse = self.word_keys.get(response.query_result.action.replace(".", ""), lambda: "Invalid name")
+        print(funcResponse(response.query_result.fulfillment_text))
 
 test_temp = QueryManager()
 response = test_temp.query(sys.argv[1])
