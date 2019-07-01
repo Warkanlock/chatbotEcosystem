@@ -9,7 +9,7 @@ import sys
 import dialogflow_v2 as dialogflow
 import re
 
-CREDENTIALS = './2513283ecf3d.json'
+CREDENTIALS = './Ecosystem ChatBot-fcb8f6d650b8.json'
 
 class QueryManager():
     def __init__(self):

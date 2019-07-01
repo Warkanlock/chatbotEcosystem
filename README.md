@@ -1,3 +1,1 @@
 # chatbotEcosystem
-
-el CHATO boy
