@@ -12,10 +12,11 @@ import dialogflow_v2 as dialogflow
 import re
 import requests
 import json
-from answers import AnswerManager 
+from answers import AnswerManager
 
-CREDENTIALS = './Ecosystem ChatBot-fcb8f6d650b8.json'
+CREDENTIALS = './2513283ecf3d.json'
 HOST = 'http://127.0.0.1:5000'
+
 
 class QueryManager():
     def __init__(self):
@@ -24,23 +25,26 @@ class QueryManager():
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIALS
         self.SESSION_ID = 'current-user-id'
         self.session_client = dialogflow.SessionsClient()
-        self.session = self.session_client.session_path(self.DIALOGFLOW_PROJECT_ID, self.SESSION_ID)
-        
+        self.session = self.session_client.session_path(
+            self.DIALOGFLOW_PROJECT_ID, self.SESSION_ID)
+
         self.response = None
         self.answer = AnswerManager()
-
 
         print('Session path: {}\n'.format(self.session))
 
     def query(self, textQuery):
-        text_input = dialogflow.types.TextInput(text=textQuery, language_code=self.DIALOGFLOW_LANGUAGE_CODE)
+        text_input = dialogflow.types.TextInput(
+            text=textQuery, language_code=self.DIALOGFLOW_LANGUAGE_CODE)
         query_input = dialogflow.types.QueryInput(text=text_input)
-        self.response = self.session_client.detect_intent(session=self.session, query_input=query_input)
+        self.response = self.session_client.detect_intent(
+            session=self.session, query_input=query_input)
         return self.response
 
     def manageResponse(self, response):
-        self.answer.chooseAnswer(response=response)
-        
+        return self.answer.chooseAnswer(response=response)
+
+
 test_temp = QueryManager()
 response = test_temp.query(sys.argv[1])
-test_temp.manageResponse(response)
+print(test_temp.manageResponse(response))
