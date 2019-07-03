@@ -1,0 +1,53 @@
+<body>
+    <head>
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+                <link rel="stylesheet"  href="{{ url_for('static', filename='css/index.css')}}"/>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    </head>
+    <html>
+        <div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 paddingCol">
+                    <div class="jumbotron">
+                        <div class="container">
+                            <h2>
+                                <b>Ecosystem</b> - Chatbot
+                            </h2>
+                            <p>
+                                <input id='questiontag' name='question' class="form-control mr-sm-2" type="text" class="buttonSize" />
+                                <br/>
+                                <input id='questionresponse' placeholder="Just ask me anything" class="buttonSize" disabled>
+                                <center style='padding-top: 5px; padding-bottom: 5px;'>
+                                    <button  id='askme' class="askme btn btn-primary my-2 my-sm-0" type="submit">
+                                        Ask me!
+                                    </button>
+                                </center>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </html>
+    <script>
+    $("#askme").click(function () {
+        var text = $("#questiontag").val();
+
+        $.ajax({
+            url: "/index",
+            type: "post",
+            data: { question: text },
+            success: function (response) {
+                $("#questionresponse").html(response);
+                document.getElementById('questionresponse').value = response;
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+            }
+        });
+    });
+    </script>
+</body>
+
