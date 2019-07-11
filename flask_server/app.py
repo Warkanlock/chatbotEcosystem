@@ -3,6 +3,8 @@ from chatbot import answers
 from flask import Flask, render_template, request, jsonify
 import requests
 
+# soy fede
+
 app = Flask(__name__, template_folder='./templates')
 
 test_temp = query.QueryManager()
