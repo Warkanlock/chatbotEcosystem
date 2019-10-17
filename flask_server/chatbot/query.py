@@ -34,11 +34,9 @@ class QueryManager():
         print('Session path: {}\n'.format(self.session))
 
     def query(self, textQuery):
-        text_input = dialogflow.types.TextInput(
-            text=textQuery, language_code=self.DIALOGFLOW_LANGUAGE_CODE)
+        text_input = dialogflow.types.TextInput(text=textQuery, language_code=self.DIALOGFLOW_LANGUAGE_CODE)
         query_input = dialogflow.types.QueryInput(text=text_input)
-        self.response = self.session_client.detect_intent(
-            session=self.session, query_input=query_input)
+        self.response = self.session_client.detect_intent(session=self.session, query_input=query_input)
         return self.response
 
     def manageResponse(self, response):

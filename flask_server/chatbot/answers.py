@@ -55,8 +55,7 @@ class AnswerManager():
         return replace
 
     def chooseAnswer(self, response):
-        method_name = self.word_keys.get(
-            response.query_result.action.replace(".", ""), "Invalid name")
+        method_name = self.word_keys.get(response.query_result.action.replace(".", ""), "Invalid name")
 
         if method_name == "Invalid name":
             return "Invalid Question"

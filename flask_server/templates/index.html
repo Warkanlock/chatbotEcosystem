@@ -1,9 +1,9 @@
 <body>
     <head>
-                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-                <link rel="stylesheet"  href="{{ url_for('static', filename='css/index.css')}}"/>
-                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+        <link rel="stylesheet"  href="{{ url_for('static', filename='css/index.css')}}"/>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     </head>
     <html>
         <div>
@@ -46,7 +46,7 @@
             },
             error: function (xhr) {
                 //Do Something to handle error
-                document.getElementById('questionresponse').value = "No Connection";
+                document.getElementById('questionresponse').value = "Did not found answer";
             }
         });
     });
